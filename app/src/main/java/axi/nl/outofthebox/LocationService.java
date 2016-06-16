@@ -83,8 +83,12 @@ public class LocationService extends IntentService {
     }
 
     public static void addMessage (String message, int id) {
-        messages.add(new Message(message, MessageActivity.MessageState.NEW, id));
-        showNotification(message);
+        Message msg = new Message(message, MessageActivity.MessageState.NEW, id);
+
+        if (!messages.contains(msg)) {
+            messages.add(msg);
+            showNotification(message);
+        }
     }
 
     public static void removeMessage (int id) {

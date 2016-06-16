@@ -44,7 +44,7 @@ public class WebSocketService extends IntentService {
     private void connectWebSocket() {
         URI uri;
         try {
-            uri = new URI("ws://172.24.1.1:3000/rick");
+            uri = new URI("ws://172.24.1.1:3000/jan");
         } catch (URISyntaxException e) {
             e.printStackTrace();
             return;

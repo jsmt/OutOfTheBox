@@ -32,4 +32,10 @@ public class Message {
         this.state = state;
     }
 
+    @Override
+    public boolean equals(Object m)
+    {
+        return ((Message)m).getId() == id;
+    }
+
 }
