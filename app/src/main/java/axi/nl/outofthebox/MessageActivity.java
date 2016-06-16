@@ -1,5 +1,6 @@
 package axi.nl.outofthebox;
 
+import android.content.Intent;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -20,6 +21,13 @@ public class MessageActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        Intent service = new Intent(this, LocationService.class);
+        startService(service);
+
+        Intent socketService = new Intent(this, WebSocketService.class);
+        startService(socketService);
+
         setContentView(R.layout.activity_message);
         recyclerView = (RecyclerView) findViewById(R.id.my_recycler_view);
         swipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.swipeRefreshLayout);
