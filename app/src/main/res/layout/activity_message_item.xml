@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/card_view"
+    android:layout_width="match_parent"
+    android:layout_height="150dp"
+    android:layout_marginLeft="16dp"
+    android:layout_marginRight="16dp"
+    android:layout_marginBottom="8dp"
+    android:background="?attr/selectableItemBackground"
+    android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
+
+    <RelativeLayout
+        android:id="@+id/background"
+        android:layout_width="match_parent"
+        android:gravity="center"
+        android:layout_height="match_parent"
+        android:background="#ffffff">
+
+        <ImageView
+            android:id="@+id/list_icon"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_centerVertical="true"
+            android:layout_alignParentLeft="true"
+            android:layout_marginLeft="10dp"
+            android:scaleType="centerCrop"
+            android:src="@drawable/personhelp_36px" />
+
+        <TextView
+            android:id="@+id/list_title"
+            android:layout_centerVertical="true"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="16dp"
+            android:layout_toRightOf="@+id/list_icon"
+            android:text="HULP GEVRAAGD"
+            android:textColor="#000000"
+            android:textAppearance="?attr/textAppearanceListItem"
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/list_desc"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/list_title"
+            android:layout_marginLeft="16dp"
+            android:layout_toRightOf="@+id/list_icon"
+            android:ellipsize="end"
+            android:singleLine="true"
+            android:layout_marginBottom="8dp"
+            android:text="Afdeling dranken"
+            android:textAppearance="?attr/textAppearanceListItem"
+            android:textSize="14sp"
+            android:textColor="@android:color/secondary_text_dark" />
+
+
+
+        <Button
+            style="@style/Widget.AppCompat.Button.Borderless"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Accepteren"
+            android:id="@+id/btnPos"
+            android:layout_marginRight="16dp"
+            android:layout_below="@+id/list_desc"
+            android:layout_alignParentEnd="true"
+            android:textColor="@color/colorPrimary"
+            android:layout_alignParentBottom="true" />
+
+        <Button
+            style="@style/Widget.AppCompat.Button.Borderless"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Negeren"
+            android:id="@+id/btnNeg"
+            android:layout_below="@+id/list_desc"
+            android:layout_centerHorizontal="true"
+            android:textColor="@color/colorPrimary" />
+
+    </RelativeLayout>
+</android.support.v7.widget.CardView>
