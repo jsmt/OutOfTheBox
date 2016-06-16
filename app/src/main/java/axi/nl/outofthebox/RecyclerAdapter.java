@@ -46,7 +46,7 @@ public class RecyclerAdapter extends RecyclerView.Adapter {
             h.btnNeg.setVisibility(View.INVISIBLE);
             h.btnPos.setText("Behandeld");
 
-            messages.remove(msg);
+            messages.remove(position);
             messageActivity.fillView();
 
         } else if(msg.getState().equals(MessageActivity.MessageState.CLOSED)){
@@ -55,7 +55,7 @@ public class RecyclerAdapter extends RecyclerView.Adapter {
             h.btnNeg.setVisibility(View.INVISIBLE);
             h.btnPos.setVisibility(View.INVISIBLE);
 
-            messages.remove(msg);
+            messages.remove(position);
             messageActivity.fillView();
         }
 
