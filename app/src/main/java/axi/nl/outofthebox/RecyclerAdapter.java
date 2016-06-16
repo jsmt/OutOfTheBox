@@ -45,11 +45,18 @@ public class RecyclerAdapter extends RecyclerView.Adapter {
         } else if(msg.getState().equals(MessageActivity.MessageState.PENDING)){
             h.btnNeg.setVisibility(View.INVISIBLE);
             h.btnPos.setText("Behandeld");
+
+            messages.remove(position);
+            messageActivity.fillView();
+
         } else if(msg.getState().equals(MessageActivity.MessageState.CLOSED)){
             h.tv1.setText("AFGEHANDELD");
             h.background.setBackgroundColor(ContextCompat.getColor(context, R.color.colorCardBackground));
             h.btnNeg.setVisibility(View.INVISIBLE);
             h.btnPos.setVisibility(View.INVISIBLE);
+
+            messages.remove(position);
+            messageActivity.fillView();
         }
 
         h.btnPos.setOnClickListener(new PosOnClickListener(msg));
