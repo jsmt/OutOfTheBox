@@ -76,6 +76,9 @@ public class RecyclerAdapter extends RecyclerView.Adapter {
         public void onClick(View v) {
             if(message.getState().equals(MessageActivity.MessageState.NEW)){
                 message.setState(MessageActivity.MessageState.PENDING);
+
+                WebSocketService.acceptRequest(message.getId(), message.getMessage());
+
             } else if(message.getState().equals(MessageActivity.MessageState.PENDING)){
                 message.setState(MessageActivity.MessageState.CLOSED);
             }

@@ -90,7 +90,7 @@ public class WebSocketService extends IntentService {
         mWebSocketClient.connect();
     }
 
-    public static void sendMessage(Double b1, Double b2, Double b3) {
+    public static void sendBeaconDistance(Double b1, Double b2, Double b3) {
         try {
             JSONObject message = new JSONObject();
             message.put("cmd", "pos");
@@ -102,6 +102,27 @@ public class WebSocketService extends IntentService {
 
             message.put("value", beacons);
 
+
+            if (mWebSocketClient != null) {
+                Log.d("MainActivity", "Sending message: " + message.toString());
+                mWebSocketClient.send(message.toString());
+            }
+            else
+            {
+                Log.d("MainActivity", "Server down");
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+    }
+
+    public static void acceptRequest(int pos, String label) {
+        try {
+            JSONObject message = new JSONObject();
+            message.put("req", "assist");
+            message.put("pos", pos);
+            message.put("label", label);
 
             if (mWebSocketClient != null) {
                 Log.d("MainActivity", "Sending message: " + message.toString());

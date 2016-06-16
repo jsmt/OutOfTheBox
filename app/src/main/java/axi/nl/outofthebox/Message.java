@@ -6,6 +6,7 @@ package axi.nl.outofthebox;
 public class Message {
 
     private String message;
+
     private int id;
     private MessageActivity.MessageState state = MessageActivity.MessageState.NEW;
 
@@ -21,6 +22,10 @@ public class Message {
 
     public MessageActivity.MessageState getState() {
         return state;
+    }
+
+    public int getId() {
+        return id;
     }
 
     public void setState(MessageActivity.MessageState state) {

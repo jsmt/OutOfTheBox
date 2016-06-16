@@ -166,7 +166,7 @@ public class LocationService extends IntentService {
         ++counter;
         if (counter == 10) {
             counter = 0;
-            WebSocketService.sendMessage(avgBeacon1, avgBeacon2, avgBeacon3);
+            WebSocketService.sendBeaconDistance(avgBeacon1, avgBeacon2, avgBeacon3);
         }
 
         Double ref = calcDistanceToReference();
