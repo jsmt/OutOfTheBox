@@ -73,6 +73,17 @@ public class WebSocketService extends IntentService {
 
                         LocationService.addMessage(label, pos);
                     }
+                    else if (json.has("cmd")) {
+                        String cmd = json.getString("cmd");
+
+                        if (cmd.equals("drop-assist")) {
+                            int pos = json.getInt("pos");
+                            String label = json.getString("label");
+
+                            LocationService.removeMessage(pos);
+
+                        }
+                    }
 
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -117,15 +128,15 @@ public class WebSocketService extends IntentService {
 
     }
 
-    public static void acceptRequest(int pos, String label) {
+    public static void acceptRequest(int pos) {
         try {
             JSONObject message = new JSONObject();
-            message.put("req", "assist");
+            message.put("cmd", "assist");
             message.put("pos", pos);
-            message.put("label", label);
+            message.put("value", true);
 
             if (mWebSocketClient != null) {
-                Log.d("MainActivity", "Sending message: " + message.toString());
+                Log.d("MainActivity", "acceptRequest - Sending message: " + message.toString());
                 mWebSocketClient.send(message.toString());
             }
             else
@@ -135,6 +146,44 @@ public class WebSocketService extends IntentService {
         } catch (JSONException e) {
             e.printStackTrace();
         }
+    }
 
+    public static void denyRequest(int pos) {
+        try {
+            JSONObject message = new JSONObject();
+            message.put("cmd", "assist");
+            message.put("pos", pos);
+            message.put("value", false);
+
+            if (mWebSocketClient != null) {
+                Log.d("MainActivity", "denyRequest - Sending message: " + message.toString());
+                mWebSocketClient.send(message.toString());
+            }
+            else
+            {
+                Log.d("MainActivity", "Server down");
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static void closeRequest(int pos) {
+        try {
+            JSONObject message = new JSONObject();
+            message.put("cmd", "arrived");
+            message.put("pos", pos);
+
+            if (mWebSocketClient != null) {
+                Log.d("MainActivity", "closeRequest - Sending message: " + message.toString());
+                mWebSocketClient.send(message.toString());
+            }
+            else
+            {
+                Log.d("MainActivity", "Server down");
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
     }
 }

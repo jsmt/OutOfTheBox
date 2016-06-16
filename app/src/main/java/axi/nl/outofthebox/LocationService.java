@@ -87,6 +87,16 @@ public class LocationService extends IntentService {
         showNotification(message);
     }
 
+    public static void removeMessage (int id) {
+        for (int i = 0; i < messages.size(); i++) {
+            Message msg = (Message)messages.get(i);
+            if (msg.getId() == id) {
+                messages.remove(i);
+                break;
+            }
+        }
+    }
+
     private static void showNotification(String message) {
         Intent myIntent = new Intent(context, MessageActivity.class);
         PendingIntent pendingIntent = PendingIntent.getActivity(

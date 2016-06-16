@@ -1,13 +1,11 @@
 package axi.nl.outofthebox;
 
 import android.content.Context;
-import android.graphics.Color;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import java.util.List;
 
@@ -77,10 +75,12 @@ public class RecyclerAdapter extends RecyclerView.Adapter {
             if(message.getState().equals(MessageActivity.MessageState.NEW)){
                 message.setState(MessageActivity.MessageState.PENDING);
 
-                WebSocketService.acceptRequest(message.getId(), message.getMessage());
+                WebSocketService.acceptRequest(message.getId());
 
             } else if(message.getState().equals(MessageActivity.MessageState.PENDING)){
                 message.setState(MessageActivity.MessageState.CLOSED);
+
+                WebSocketService.closeRequest(message.getId());
             }
             RecyclerAdapter.this.messageActivity.fillView();
         }
@@ -98,6 +98,8 @@ public class RecyclerAdapter extends RecyclerView.Adapter {
         public void onClick(View v) {
             if(message.getState().equals(MessageActivity.MessageState.NEW)){
                 message.setState(MessageActivity.MessageState.CLOSED);
+
+                WebSocketService.denyRequest(message.getId());
             }
             RecyclerAdapter.this.messageActivity.fillView();
         }
