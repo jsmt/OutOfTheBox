@@ -68,10 +68,10 @@ public class WebSocketService extends IntentService {
 
                     if (json.has("req")) {
                         String req = json.getString("req");
-                        String pos = json.getString("pos");
+                        int pos = json.getInt("pos");
                         String label = json.getString("label");
 
-                        LocationService.addMessage(label);
+                        LocationService.addMessage(label, pos);
                     }
 
                 } catch (JSONException e) {

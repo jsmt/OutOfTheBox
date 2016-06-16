@@ -82,8 +82,8 @@ public class LocationService extends IntentService {
         super.onCreate();
     }
 
-    public static void addMessage (String message) {
-        messages.add(new Message(message, MessageActivity.MessageState.NEW));
+    public static void addMessage (String message, int id) {
+        messages.add(new Message(message, MessageActivity.MessageState.NEW, id));
         showNotification(message);
     }
 
