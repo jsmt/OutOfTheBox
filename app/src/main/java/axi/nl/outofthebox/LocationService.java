@@ -6,12 +6,10 @@ import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
-import android.util.Log;
 
 import com.estimote.sdk.Beacon;
 import com.estimote.sdk.BeaconManager;
 import com.estimote.sdk.Region;
-
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -186,12 +184,12 @@ public class LocationService extends IntentService {
 
         Double ref = calcDistanceToReference();
 
-        Log.d("MainActivity", "region " + region.getIdentifier() + " Distance: " + distance);
-        Log.d("MainActivity", "average: " + average);
+//        Log.d("MainActivity", "region " + region.getIdentifier() + " Distance: " + distance);
+//        Log.d("MainActivity", "average: " + average);
     }
 
     private Double measureDistance(Integer power, Integer rssi) {
-        return Math.pow(10, ((power-rssi) / 18.0)); // willebroek samsung 21 / breda (zilver) 20
+        return Math.pow(10, ((power-rssi) / 20.0)); // willebroek samsung 21 / breda (zilver) 20
     }
 
     private Double getAverage(Region region, Double newDistance) {
