@@ -24,7 +24,7 @@
             android:layout_alignParentLeft="true"
             android:layout_marginLeft="10dp"
             android:scaleType="centerCrop"
-            android:src="@drawable/personhelp_36px" />
+            android:src="@drawable/question_36" />
 
         <TextView
             android:id="@+id/list_title"

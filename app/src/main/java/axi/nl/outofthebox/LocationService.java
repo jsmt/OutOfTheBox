@@ -107,7 +107,7 @@ public class LocationService extends IntentService {
         Notification not = new Notification.Builder(context)
                 .setContentTitle("HULP GEVRAAGD")
                 .setContentText(message)
-                .setSmallIcon(R.drawable.personhelp_36px)
+                .setSmallIcon(R.drawable.question_16)
                 .setContentIntent(pendingIntent)
                 .build();
 
