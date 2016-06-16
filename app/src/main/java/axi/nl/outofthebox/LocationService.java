@@ -109,6 +109,7 @@ public class LocationService extends IntentService {
                 .setContentText(message)
                 .setSmallIcon(R.drawable.question_16)
                 .setContentIntent(pendingIntent)
+                .setAutoCancel(true)
                 .build();
 
         // Builds the notification and issues it.
