@@ -46,17 +46,14 @@ public class RecyclerAdapter extends RecyclerView.Adapter {
             h.btnNeg.setVisibility(View.INVISIBLE);
             h.btnPos.setText("Behandeld");
 
-            messages.remove(position);
-            messageActivity.fillView();
-
         } else if(msg.getState().equals(MessageActivity.MessageState.CLOSED)){
             h.tv1.setText("AFGEHANDELD");
             h.background.setBackgroundColor(ContextCompat.getColor(context, R.color.colorCardBackground));
             h.btnNeg.setVisibility(View.INVISIBLE);
             h.btnPos.setVisibility(View.INVISIBLE);
 
-            messages.remove(position);
-            messageActivity.fillView();
+//            messages.remove(position);
+//            messageActivity.fillView();
         }
 
         h.btnPos.setOnClickListener(new PosOnClickListener(msg));
@@ -88,6 +85,9 @@ public class RecyclerAdapter extends RecyclerView.Adapter {
                 message.setState(MessageActivity.MessageState.CLOSED);
 
                 WebSocketService.closeRequest(message.getId());
+
+                int position = RecyclerAdapter.this.messages.indexOf(message);
+                messages.remove(position);
             }
             RecyclerAdapter.this.messageActivity.fillView();
         }
@@ -107,6 +107,9 @@ public class RecyclerAdapter extends RecyclerView.Adapter {
                 message.setState(MessageActivity.MessageState.CLOSED);
 
                 WebSocketService.denyRequest(message.getId());
+
+                int position = RecyclerAdapter.this.messages.indexOf(message);
+                messages.remove(position);
             }
             RecyclerAdapter.this.messageActivity.fillView();
         }
