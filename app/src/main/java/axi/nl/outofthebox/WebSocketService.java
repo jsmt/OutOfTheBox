@@ -1,6 +1,7 @@
 package axi.nl.outofthebox;
 
 import android.app.IntentService;
+import android.app.Service;
 import android.content.Intent;
 import android.util.Log;
 
@@ -20,18 +21,37 @@ import java.net.URISyntaxException;
  * helper methods.
  */
 public class WebSocketService extends IntentService {
-
     private static WebSocketClient mWebSocketClient;
+
+    public static final String BROADCAST_ACTION = "axi.nl.outofthebox.refreshevent";
+    //private final Handler handler = new Handler();
 
     public WebSocketService() {
         super("WebSocketService");
     }
 
+
     @Override
-    public void onCreate() {
+    public void onStart(Intent intent, int startId) {
+    }
+
+    @Override
+    public int onStartCommand(Intent intent, int i, int b) {
         connectWebSocket();
 
+        return Service.START_STICKY;
+    }
+
+
+    @Override
+    public void onCreate() {
+
         super.onCreate();
+    }
+
+    @Override
+    public void onDestroy() {
+        mWebSocketClient.close();
     }
 
     @Override
@@ -39,7 +59,20 @@ public class WebSocketService extends IntentService {
 
     }
 
+    public void addMessage (String message, int id) {
+        Intent intent = new Intent(BROADCAST_ACTION);
+        intent.putExtra("command", "ADD");
+        intent.putExtra("label", message);
+        intent.putExtra("id", id);
+        sendBroadcast(intent);
+    }
 
+    public void removeMessage (int id) {
+        Intent intent = new Intent(BROADCAST_ACTION);
+        intent.putExtra("command", "REMOVE");
+        intent.putExtra("id", id);
+        sendBroadcast(intent);
+    }
 
     private void connectWebSocket() {
         URI uri;
@@ -71,7 +104,7 @@ public class WebSocketService extends IntentService {
                         int pos = json.getInt("pos");
                         String label = json.getString("label");
 
-                        LocationService.addMessage(label, pos);
+                        addMessage(label, pos);
                     }
                     else if (json.has("cmd")) {
                         String cmd = json.getString("cmd");
@@ -80,7 +113,7 @@ public class WebSocketService extends IntentService {
                             int pos = json.getInt("pos");
                             String label = json.getString("label");
 
-                            LocationService.removeMessage(pos);
+                            removeMessage(pos);
 
                         }
                     }

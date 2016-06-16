@@ -1,10 +1,7 @@
 package axi.nl.outofthebox;
 
 import android.app.IntentService;
-import android.app.Notification;
-import android.app.NotificationManager;
-import android.app.PendingIntent;
-import android.content.Context;
+import android.app.Service;
 import android.content.Intent;
 
 import com.estimote.sdk.Beacon;
@@ -17,7 +14,6 @@ import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.UUID;
-import java.util.concurrent.atomic.AtomicInteger;
 
 /**
  * An {@link IntentService} subclass for handling asynchronous task requests in
@@ -48,11 +44,6 @@ public class LocationService extends IntentService {
 
     private HashMap<String, LinkedList<Double>> averagesPerBeacon = new HashMap<String, LinkedList<Double>>();
 
-    private static List<Message> messages = new ArrayList<Message>();
-
-    private static Context context;
-    private static NotificationManager mNotifyMgr;
-    private final static AtomicInteger c = new AtomicInteger(0);
 
     public LocationService() {
         super("LocationService");
@@ -60,8 +51,6 @@ public class LocationService extends IntentService {
 
     @Override
     public void onCreate() {
-        context = getApplicationContext();
-        mNotifyMgr = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
 
         createBeaconManager();
 
@@ -80,52 +69,8 @@ public class LocationService extends IntentService {
         super.onCreate();
     }
 
-    public static void addMessage (String message, int id) {
-        Message msg = new Message(message, MessageActivity.MessageState.NEW, id);
-
-        if (!messages.contains(msg)) {
-            messages.add(msg);
-            showNotification(message);
-        }
-    }
-
-    public static void removeMessage (int id) {
-        for (int i = 0; i < messages.size(); i++) {
-            Message msg = (Message)messages.get(i);
-            if (msg.getId() == id) {
-                messages.remove(i);
-                break;
-            }
-        }
-    }
-
-    private static void showNotification(String message) {
-        Intent myIntent = new Intent(context, MessageActivity.class);
-        PendingIntent pendingIntent = PendingIntent.getActivity(
-                context,
-                0,
-                myIntent,
-                PendingIntent.FLAG_UPDATE_CURRENT);
-        Notification not = new Notification.Builder(context)
-                .setContentTitle("HULP GEVRAAGD")
-                .setContentText(message)
-                .setSmallIcon(R.drawable.question_16_white)
-                .setContentIntent(pendingIntent)
-                .setAutoCancel(true)
-                .build();
-
-        // Builds the notification and issues it.
-        mNotifyMgr.notify(c.incrementAndGet(), not);
-    }
-
-
-    public static List getMessages () {
-        return messages;
-    }
-
-
     @Override
-    protected void onHandleIntent(Intent intent) {
+    public int onStartCommand(Intent intent, int i, int b) {
         if (intent != null) {
             beaconManager.connect(new BeaconManager.ServiceReadyCallback() {
                 @Override
@@ -136,6 +81,14 @@ public class LocationService extends IntentService {
                 }
             });
         }
+
+        return Service.START_STICKY;
+    }
+
+
+    @Override
+    protected void onHandleIntent(Intent intent) {
+
     }
 
     private void createBeaconManager() {
