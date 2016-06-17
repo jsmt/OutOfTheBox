@@ -9,12 +9,12 @@
     <android.support.v7.widget.RecyclerView
         xmlns:android="http://schemas.android.com/apk/res/android"
         android:id="@+id/my_recycler_view"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_width="wrap_content"
+        android:layout_height="fill_parent"
         android:clipToPadding="false"
         android:paddingBottom="16dp"
         android:paddingTop="16dp"
         android:scrollbars="vertical"
-        />
+        android:background="@drawable/outofthebox_light" />
 
 </android.support.v4.widget.SwipeRefreshLayout>

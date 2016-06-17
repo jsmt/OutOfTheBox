@@ -24,7 +24,7 @@ import java.util.UUID;
  */
 public class LocationService extends IntentService {
 
-    private static final Integer AVERAGE_OF = 200;
+    private static final Integer AVERAGE_OF = 50;
 
     private BeaconManager beaconManager;
 
